@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Take a cup of water</title>
+  <link th:href="@{http://localhost:8080/css/style.css}" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<br><br><br><br>
+  <div class="content">
+  <div th:each="glass,iter : ${glasses}">
+    <p th:style="'color:#F8F8FF;position: absolute;top: 14%;margin-left:120px'" th:text="'Capacity: ' + ${glass.getCapacity()} + ' L'"></p>
+    <p th:style="'color:#728FCE;position: absolute;top: 18%;margin-left:120px'" th:text="' Quantity: ' + ${glass.getQuantity()} + ' L'"></p>
+    <div class="cup" th:style="'background-position: 0px '+${glass.fillPixels()} + 'px'">
+      <p th:style="'font-size:100px;color:#C35817;text-align: center;margin-top: auto;margin-bottom: auto'" th:text="${iter.count}"></p>
+    </div>
+  </div>
+</div>
+<br>
+<div class="menu">
+  <form th:action="@{/add}" th:object="${glass}" method="post">
+    <p>Capacity: <input type="text" th:field="*{capacity}" id="capacity" name="capacity" autocomplete="off"></p>
+    <p>Quantity: <input type="text" th:field="*{quantity}" id="quantity" name="quantity" autocomplete="off"></p>
+    <p><input type="submit" value="add new glass"> </p>
+  </form>
+  <br>
+  <p th:text="${T(pl.pzprojects.thymeleaftrainingpawel.exceptions.GlassFormExceptionManager).STATUS}"></p>
+</div>
+<div class="menu">
+  <form th:action="@{/put-water}" th:object="${glassPour}" method="post">
+    <p>
+<!--      <input type="hidden" th:field="*{glassId}" id="glassid" name="glassid" autocomplete="off">-->
+      <label for="glassid">From glass number:</label>
+      <input list="glassids" name="glassid" id="glassid" th:field="*{glassId}" autocomplete="off" onclick="this.value = ''" placeholder="Select Glass" onchange="getMaxRange()">
+      <datalist id="glassids">
+          <option th:each="glass,iter : ${glasses}" th:text="${iter.count}"></option>
+      </datalist>
+    </p>
+    <p>
+<!--        <input type="text" th:field="*{targetId}" id="targetid" name="targetid" autocomplete="off" ></p>-->
+        <label for="targetid">To glass number:</label>
+        <input list="targetids" name="targetid" id="targetid" th:field="*{targetId}" autocomplete="off" onclick="this.value = ''" placeholder="Select Glass" onchange="getMaxRange()">
+        <datalist id="targetids">
+            <option th:each="glass,iter : ${glasses}" th:text="${iter.count}">
+        </datalist>
+    <p>Quantity: <input type="range" th:field="*{pourQuantity}" value="0.0" min="0.0" step="0.1" max="0.0" id="pourQuantity" name="pourQuantity" autocomplete="off" oninput="this.nextElementSibling.value = this.value">
+      <output id="pourQuantityOutput" name="pourQuantityOutput">0</output>
+  </p>
+    <p><input type="submit" value="pour out water"> </p>
+  </form>
+  <br>
+  <p th:text="${T(pl.pzprojects.thymeleaftrainingpawel.exceptions.GlassPourExceptionManager).STATUS}"></p>
+</div>
+<script th:inline="javascript" th:object="${glass}">
+    function getMaxRange()
+    {
+        document.getElementById("pourQuantityOutput").innerText = "0.0";
+        document.getElementById("pourQuantity").value = "0.0";
+        document.getElementById("pourQuantity").max = "0.0";
+        var from = document.getElementById("glassid").value;
+        var to = document.getElementById("targetid").value;
+        if(!Number.isNaN(from) && !Number.isNaN(to))
+        {
+            try{
+                var message = /*[[${glasses}]]*/ 'default';
+                var glassFreeSpace = message[from-1].capacity - message[from-1].quantity;
+                var targetFreeSpace = message[to-1].capacity - message[to-1].quantity;
+                if(!Number.isNaN(glassFreeSpace) && !Number.isNaN(targetFreeSpace))
+                {
+                    if(glassFreeSpace>=0 && targetFreeSpace>=0)
+                    {
+                        if(from != to)
+                        {
+                            var maxValue = Math.min(message[from-1].quantity,targetFreeSpace)
+                            document.getElementById("pourQuantity").max = maxValue;
+                            document.getElementById("pourQuantityOutput").hidden = false;
+                        }
+                    }
+                }
+            }
+            catch(error){
+                console.log(error);
+            }
+        }
+    }
+</script>
+</body>
+</html>
