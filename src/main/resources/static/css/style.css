@@ -34,7 +34,7 @@ body {
     border-radius: 15px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    background: url("http://localhost:8080/images/water.png");
+    background: url("/images/water.png");
     background-repeat: repeat-x;
     background-position: 0px 0px;
     box-shadow: 0 0 0 1px #fff, 0 20px 35px rgba(0,0,0,1);

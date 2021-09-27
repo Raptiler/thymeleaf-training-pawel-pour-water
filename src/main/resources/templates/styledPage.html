@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Take a cup of water</title>
-  <link th:href="@{http://localhost:8080/css/style.css}" type="text/css" rel="stylesheet" />
+  <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet" />
 </head>
 <body>
 <br><br><br><br>
   <div class="content">
   <div th:each="glass,iter : ${glasses}">
-    <p th:style="'color:#F8F8FF;position: absolute;top: 14%;margin-left:120px'" th:text="'Capacity: ' + ${glass.getCapacity()} + ' L'"></p>
-    <p th:style="'color:#728FCE;position: absolute;top: 18%;margin-left:120px'" th:text="' Quantity: ' + ${glass.getQuantity()} + ' L'"></p>
+      <p th:style="'color:#F8F8FF;position: absolute;top: 14%;margin-left:120px'" th:text="'Capacity: ' + ${glass.getCapacity().substring(0,glass.getCapacity().indexOf('.')+2)} + ' L'" th:if="${glass.getCapacity().contains('.')}"></p>
+      <p th:style="'color:#F8F8FF;position: absolute;top: 14%;margin-left:120px'" th:text="'Capacity: ' + ${glass.getCapacity()} + ' L'" th:unless="${glass.getCapacity().contains('.')}"></p>
+      <p th:style="'color:#728FCE;position: absolute;top: 18%;margin-left:120px'" th:text="' Quantity: ' + ${glass.getQuantity().substring(0,glass.getQuantity().indexOf('.')+2)} + ' L'" th:if="${glass.getQuantity().contains('.')}"></p>
+      <p th:style="'color:#728FCE;position: absolute;top: 18%;margin-left:120px'" th:text="' Quantity: ' + ${glass.getQuantity()} + ' L'" th:unless="${glass.getQuantity().contains('.')}"></p>
     <div class="cup" th:style="'background-position: 0px '+${glass.fillPixels()} + 'px'">
       <p th:style="'font-size:100px;color:#C35817;text-align: center;margin-top: auto;margin-bottom: auto'" th:text="${iter.count}"></p>
     </div>
