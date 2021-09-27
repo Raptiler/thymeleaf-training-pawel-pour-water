@@ -14,4 +14,5 @@ Thymeleaf -
 * th:field - used to manage objects properties
 * th:text - used to show text and a static variables from project ex. [th:text="${T(pl.pzprojects.thymeleaftrainingpawel.exceptions.GlassFormExceptionManager).STATUS}]
 * th:inline - used to compare javascript with thymeleaf model variables which was helpful to make intelligent range bar which will not allow You to pour more water then it is possible
+* th:if/th:unless - used to make if/else statement in thymeleaf
 Mockito - Used to make Tests
