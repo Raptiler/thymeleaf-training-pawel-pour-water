@@ -9,10 +9,10 @@
 <br><br><br><br>
   <div class="content">
   <div th:each="glass,iter : ${glasses}">
-      <p th:style="'color:#F8F8FF;position: absolute;top: 14%;margin-left:120px'" th:text="'Capacity: ' + ${glass.getCapacity().substring(0,glass.getCapacity().indexOf('.')+2)} + ' L'" th:if="${glass.getCapacity().contains('.')}"></p>
-      <p th:style="'color:#F8F8FF;position: absolute;top: 14%;margin-left:120px'" th:text="'Capacity: ' + ${glass.getCapacity()} + ' L'" th:unless="${glass.getCapacity().contains('.')}"></p>
-      <p th:style="'color:#728FCE;position: absolute;top: 18%;margin-left:120px'" th:text="' Quantity: ' + ${glass.getQuantity().substring(0,glass.getQuantity().indexOf('.')+2)} + ' L'" th:if="${glass.getQuantity().contains('.')}"></p>
-      <p th:style="'color:#728FCE;position: absolute;top: 18%;margin-left:120px'" th:text="' Quantity: ' + ${glass.getQuantity()} + ' L'" th:unless="${glass.getQuantity().contains('.')}"></p>
+      <p th:style="'color:#F8F8FF;position: absolute;margin-top: -90px;margin-left:120px'" th:text="'Capacity: ' + ${glass.getCapacity().substring(0,glass.getCapacity().indexOf('.')+2)} + ' L'" th:if="${glass.getCapacity().contains('.')}"></p>
+      <p th:style="'color:#F8F8FF;position: absolute;margin-top: -90px;margin-left:120px'" th:text="'Capacity: ' + ${glass.getCapacity()} + ' L'" th:unless="${glass.getCapacity().contains('.')}"></p>
+      <p th:style="'color:#728FCE;position: absolute;margin-top: -70px;margin-left:120px'" th:text="' Quantity: ' + ${glass.getQuantity().substring(0,glass.getQuantity().indexOf('.')+2)} + ' L'" th:if="${glass.getQuantity().contains('.')}"></p>
+      <p th:style="'color:#728FCE;position: absolute;margin-top: -70px;margin-left:120px'" th:text="' Quantity: ' + ${glass.getQuantity()} + ' L'" th:unless="${glass.getQuantity().contains('.')}"></p>
     <div class="cup" th:style="'background-position: 0px '+${glass.fillPixels()} + 'px'">
       <p th:style="'font-size:100px;color:#C35817;text-align: center;margin-top: auto;margin-bottom: auto'" th:text="${iter.count}"></p>
     </div>
