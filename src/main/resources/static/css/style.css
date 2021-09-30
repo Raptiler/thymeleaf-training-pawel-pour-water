@@ -21,6 +21,52 @@ body {
     justify-content: center;
 }
 
+.menu-delete{
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    position: center;
+    color: lightblue;
+    text-align-last: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-add {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 70%;
+    opacity: 0.9;
+    border-radius: 3px;
+}
+
+.button-pour {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    opacity: 0.9;
+    border-radius: 3px;
+}
+
+.button-delete{
+    background-color: #f44336;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
 .cup {
     position: relative;
     top:50%;
@@ -52,21 +98,5 @@ body {
     border-bottom-left-radius: 35px;
     border-bottom-right-radius: 10px;
 }
-
-@keyframes animate {
-    0%{
-        background-position: 0 100px;
-    }
-    10%{
-        background-position: 0 100px;
-    }
-    40%{
-        background-position: 1000px -70px;
-    }
-    80%{
-        background-position:  2000px -80px;
-    }
-    100%{
-        background-position: 2500px -100px;
-    }
-}
+.form-textfield{ width: 35%; height: 10%; background-color: #ededed; opacity: 0.9; transition: 0.5s;}
+.form-textfield:focus{transition: 0.5s; opacity: 1;}

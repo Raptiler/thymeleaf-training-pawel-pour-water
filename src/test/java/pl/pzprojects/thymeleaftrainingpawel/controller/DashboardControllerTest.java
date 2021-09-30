@@ -106,6 +106,18 @@ public class DashboardControllerTest {
         assertEquals(dashboardController.glasses.get(1).getQuantity(),"3.0");
     }
 
+    @Test
+    public void testShouldDashboardDeleteGlasses() throws Exception{
+
+        dashboardController.glasses = createGlasses();
+
+        mockMvc.perform(post("/delete-all"))
+                .andExpect(status().is(302))
+                .andExpect(view().name("redirect:/"))
+                .andDo(print());
+        assertTrue(dashboardController.glasses.size()==0);
+    }
+
     private List<Glass> createGlasses()
     {
         List<Glass> glasses;

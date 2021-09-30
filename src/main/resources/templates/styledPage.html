@@ -21,9 +21,9 @@
 <br>
 <div class="menu">
   <form th:action="@{/add}" th:object="${glass}" method="post">
-    <p>Capacity: <input type="text" th:field="*{capacity}" id="capacity" name="capacity" autocomplete="off"></p>
-    <p>Quantity: <input type="text" th:field="*{quantity}" id="quantity" name="quantity" autocomplete="off"></p>
-    <p><input type="submit" value="add new glass"> </p>
+    <p>Capacity: <input class="form-textfield" type="text" th:field="*{capacity}" id="capacity" name="capacity" autocomplete="off"></p>
+    <p>Quantity: <input class="form-textfield" type="text" th:field="*{quantity}" id="quantity" name="quantity" autocomplete="off"></p>
+    <p><input class="button-add" type="submit" value="Add new glass"> </p>
   </form>
   <br>
   <p th:text="${T(pl.pzprojects.thymeleaftrainingpawel.exceptions.GlassFormExceptionManager).STATUS}"></p>
@@ -33,7 +33,7 @@
     <p>
 <!--      <input type="hidden" th:field="*{glassId}" id="glassid" name="glassid" autocomplete="off">-->
       <label for="glassid">From glass number:</label>
-      <input list="glassids" name="glassid" id="glassid" th:field="*{glassId}" autocomplete="off" onclick="this.value = ''" placeholder="Select Glass" onchange="getMaxRange()">
+      <input class="form-textfield" list="glassids" name="glassid" id="glassid" th:field="*{glassId}" autocomplete="off" onclick="this.value = ''" placeholder="Select Glass" onchange="getMaxRange()">
       <datalist id="glassids">
           <option th:each="glass,iter : ${glasses}" th:text="${iter.count}"></option>
       </datalist>
@@ -41,17 +41,24 @@
     <p>
 <!--        <input type="text" th:field="*{targetId}" id="targetid" name="targetid" autocomplete="off" ></p>-->
         <label for="targetid">To glass number:</label>
-        <input list="targetids" name="targetid" id="targetid" th:field="*{targetId}" autocomplete="off" onclick="this.value = ''" placeholder="Select Glass" onchange="getMaxRange()">
+        <input class="form-textfield" list="targetids" name="targetid" id="targetid" th:field="*{targetId}" autocomplete="off" onclick="this.value = ''" placeholder="Select Glass" onchange="getMaxRange()">
         <datalist id="targetids">
             <option th:each="glass,iter : ${glasses}" th:text="${iter.count}">
         </datalist>
     <p>Quantity: <input type="range" th:field="*{pourQuantity}" value="0.0" min="0.0" step="0.1" max="0.0" id="pourQuantity" name="pourQuantity" autocomplete="off" oninput="this.nextElementSibling.value = this.value">
       <output id="pourQuantityOutput" name="pourQuantityOutput">0</output>
   </p>
-    <p><input type="submit" value="pour out water"> </p>
+    <p><input class="button-pour" type="submit" value="pour out water"> </p>
   </form>
   <br>
   <p th:text="${T(pl.pzprojects.thymeleaftrainingpawel.exceptions.GlassPourExceptionManager).STATUS}"></p>
+</div>
+<br>
+<div class="menu-delete">
+    <form th:action="@{/delete-all}" method="post">
+        <br>
+        <input class="button-delete" type="submit" value="Delete All Glasses">
+    </form>
 </div>
 <script th:inline="javascript" th:object="${glass}">
     function getMaxRange()

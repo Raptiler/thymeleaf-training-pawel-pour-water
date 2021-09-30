@@ -2,9 +2,7 @@ package pl.pzprojects.thymeleaftrainingpawel.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.pzprojects.thymeleaftrainingpawel.Glass;
 import pl.pzprojects.thymeleaftrainingpawel.GlassPourDto;
 import pl.pzprojects.thymeleaftrainingpawel.exceptions.GlassFormExceptionManager;
@@ -50,21 +48,28 @@ public class DashboardController {
         }
         return "redirect:/";
     }
+    @PostMapping("/delete-all")
+    public String deleteAll(){
+        glasses.clear();
+        GlassFormExceptionManager.STATUS = "";
+        GlassPourExceptionManager.STATUS = "";
+        return "redirect:/";
+    }
+
 
     public boolean isError(Glass g)
     {
+        Boolean error = true;
         try{
             Double capacity = Double.valueOf(g.getCapacity());
             Double quantity = Double.valueOf(g.getQuantity());
             if(quantity <= 0 || capacity <= 0)
             {
-                GlassFormExceptionManager.STATUS = "Values must be higher then 0";
-                return true;
+                throw new IllegalArgumentException("Values must be higher then 0");
             }
             if(quantity > capacity)
             {
-                GlassFormExceptionManager.STATUS = "You can not create overfilled glass";
-                return true;
+                throw new IllegalArgumentException("You can not create overfilled glass");
             }
         }
         catch(NumberFormatException e){
@@ -72,11 +77,11 @@ public class DashboardController {
             return true;
         }
         catch(NullPointerException e){
-            GlassFormExceptionManager.STATUS = "NULL";
+            GlassFormExceptionManager.STATUS = "Something went wrong! Object doesnt exists";
             return true;
         }
         catch(IllegalArgumentException e){
-            GlassFormExceptionManager.STATUS = "One or more values has illegal characters";
+            GlassFormExceptionManager.STATUS = e.getMessage();
             return true;
         }
         GlassFormExceptionManager.STATUS = "Glass Created!";
@@ -90,23 +95,19 @@ public class DashboardController {
             Integer tid = Integer.valueOf(g.getTargetId());
             if(gid == null || tid == null)
             {
-                GlassPourExceptionManager.STATUS = "One or more glass is NULL";
-                return true;
+                throw new NullPointerException();
             }
             if((gid > glasses.size() || gid <= 0) || (tid > glasses.size() || tid <= 0))
             {
-                GlassPourExceptionManager.STATUS = "One or more glass doesn't exists";
-                return true;
+                throw new IllegalArgumentException("One or more glass doesn't exists");
             }
             if(quantity == null || quantity.isNaN())
             {
-                GlassPourExceptionManager.STATUS = "Quantity must be a number";
-                return true;
+                throw new IllegalArgumentException("Quantity must be a number");
             }
             if(quantity <= 0)
             {
-                GlassPourExceptionManager.STATUS = "Quantity can not be 0 and lower";
-                return true;
+                throw new IllegalArgumentException("Quantity can not be 0 and lower");
             }
         }
         catch (NumberFormatException e)
@@ -117,6 +118,11 @@ public class DashboardController {
         catch (NullPointerException e)
         {
             GlassPourExceptionManager.STATUS = "One or more objects are null";
+            return true;
+        }
+        catch (IllegalArgumentException e)
+        {
+            GlassPourExceptionManager.STATUS = e.getMessage();
             return true;
         }
         GlassPourExceptionManager.STATUS = "Success!";
