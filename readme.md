@@ -20,4 +20,4 @@ Thymeleaf -
 * th:inline - used to compare javascript with thymeleaf model variables which was helpful to make intelligent range bar which will not allow You to pour more water then it is possible
 * th:if/th:unless - used to make if/else statement in thymeleaf
 Mockito - Used to make Tests
-file: ![Pour-the-water](https://github.com/Raptiler/thymeleaf-training-pawel-pour-water/blob/master/1.png)
+file: ![Pour-the-water](https://github.com/Raptiler/thymeleaf-training-pawel-pour-water/blob/master/pour-the-water.gif)
